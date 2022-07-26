@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './todo-list-item.css';
 
+
 export default class TodoListItem extends Component{
 
 state={
@@ -31,7 +32,7 @@ onLabelClick=()=>{
 
   render(){
 const {done, important} = this.state; 
-const{label, onDeleted} = this.props;
+const{label, onDeleted, } = this.props;
 let classNames = 'todo-list-item';
 if (done){classNames+= ' done';}
 
@@ -50,6 +51,8 @@ if (important){
         <button type='button' className='btn btn-outline-success btn-small' onClick={onDeleted}>
         <i className='fa-thin fa-trash'/>
         </button>
+      
+  
 </span>
 );
   

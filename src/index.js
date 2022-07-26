@@ -4,8 +4,13 @@ import AppHeader from './components/app-header';
 import TodoList from './components/todo-list';
 import SearchPanel from './components/search-panel';
 import ItemStatusFilter from './components/item-status-filter';
+import ItemAddForm from './components/item-add-form';
 
 export default class App extends Component {
+
+maxId=100;
+
+
   state={
   todoData:[
       {label: 'drink coffee', important: false, id:1},
@@ -17,11 +22,11 @@ export default class App extends Component {
 deleteItem =(id)=>{
 this.setState(({todoData})=>{
 const idx= todoData.findIndex((el)=>el.id===id);
-todoData.splice(idx,1);
+
 
 const before = todoData.slice(0, idx);
 const after = todoData.slice(idx+1);
-const newArray= [ ...before, ...after];
+const newArray= [...before, ...after];
 
 return {
   todoData: newArray
@@ -29,6 +34,27 @@ return {
 
 });
 };
+
+addItem=(text)=>{
+//
+const newItem={
+  label:text,
+  important: false,
+  id: this.maxId++
+};
+
+this.setState(({todoData})=> {
+
+const newArr = [
+  ...todoData,
+  newItem
+];
+
+return{
+  todoData: newArr
+};
+})
+}
 
   render (){
     return (
@@ -39,6 +65,7 @@ return {
       <TodoList 
       todos={this.state.todoData}
       onDeleted={this.deleteItem}/>
+      <ItemAddForm onItemAdded={this.addItem}/>
       </div>
     )
   }
